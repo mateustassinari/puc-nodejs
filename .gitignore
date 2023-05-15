@@ -130,3 +130,16 @@ dist
 .pnp.*
 
 package-lock.json
+
+url_hospedagem.txt
+
+.DS_Store
+/dist
+.env.*.local
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
