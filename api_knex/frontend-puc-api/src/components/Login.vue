@@ -14,7 +14,7 @@
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
             <div class="col-md-6">
-                <button type="button" class="btn btn-info" @click="cadastro()">Cadastrar</button>
+                <button type="button" class="btn btn-info" @click="cadastro()">Registrar</button>
             </div>
 		</form>
 	</div>
@@ -33,6 +33,8 @@ export default {
     },
     methods: {
         loginUsuario() {
+            let loader = this.$loading.show();
+
             let data = {
                 login: this.login,
                 senha: this.senha
@@ -44,10 +46,12 @@ export default {
                 localStorage.setItem("isAdmin", response.data.roles?.split(';').includes('ADMIN'));
                 localStorage.setItem("logado", true);
                 this.$router.push('/times')
+                loader.hide()
             })
             .catch(e => {
                 this.$toastr.defaultPosition = "toast-top-center";
                 this.$toastr.e(e.response?.data.message || 'Erro');
+                loader.hide()
             });
         },
         cadastro() {

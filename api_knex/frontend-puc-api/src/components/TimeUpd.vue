@@ -36,9 +36,12 @@
     },
     methods: {
       timeInfo(id) {
+        let loader = this.$loading.show();
+
         TimeService.getById(id)
           .then(response => {
             this.time = response.data;
+            loader.hide()
           })
           .catch(e => {
             this.$toastr.defaultPosition = "toast-top-center";
@@ -48,15 +51,19 @@
               localStorage.removeItem("isAdmin");
               localStorage.setItem("logado", false);
               this.$router.push('/')
+              loader.hide()
             }
           });
       },
       atualizaTime() {
+        let loader = this.$loading.show();
+
         TimeService.update(this.time.id, this.time)
           .then(response => {
             this.time = response.data;
             this.$toastr.defaultPosition = "toast-top-center";
             this.$toastr.s("Time atualizado com sucesso!");
+            loader.hide()
           })
           .catch(e => {
             this.$toastr.defaultPosition = "toast-top-center";
@@ -66,15 +73,19 @@
               localStorage.removeItem("isAdmin");
               localStorage.setItem("logado", false);
               this.$router.push('/')
+              loader.hide()
             }
           });
       },
       deletaTime() {
+        let loader = this.$loading.show();
+
         TimeService.delete(this.time.id)
           .then(response => {
             this.$toastr.defaultPosition = "toast-top-center";
             this.$toastr.s("Time deletado com sucesso!");
             this.$router.push('/times')
+            loader.hide()
           })
           .catch(e => {
             this.$toastr.defaultPosition = "toast-top-center";
@@ -84,6 +95,7 @@
               localStorage.removeItem("isAdmin");
               localStorage.setItem("logado", false);
               this.$router.push('/')
+              loader.hide()
             }
           });
       }

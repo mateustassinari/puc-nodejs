@@ -48,6 +48,8 @@ export default {
     },
     methods: {
         register() {
+            let loader = this.$loading.show();
+
             let data = {
                 nome: this.nome,
                 login: this.login,
@@ -61,10 +63,12 @@ export default {
                 this.$toastr.defaultPosition = "toast-top-center";
                 this.$toastr.s(response.data.message);
                 this.$router.push('/');
+                loader.hide()
             })
             .catch(e => {
                 this.$toastr.defaultPosition = "toast-top-center";
                 this.$toastr.e(e.response?.data.message || 'Erro');
+                loader.hide()
             });
         }
     }

@@ -39,11 +39,14 @@
     },
     methods: {
       salvaTime() { 
+        let loader = this.$loading.show();
+
         TimeService.create(this.time)
           .then(response => {
             this.$toastr.defaultPosition = "toast-top-center";
             this.$toastr.s("Time salvo com sucesso!");
             this.$router.push('/times')
+            loader.hide()
           })
           .catch(e => {
             this.$toastr.defaultPosition = "toast-top-center";
@@ -53,6 +56,7 @@
               localStorage.removeItem("isAdmin");
               localStorage.setItem("logado", false);
               this.$router.push('/')
+              loader.hide()
             }
           });
       }

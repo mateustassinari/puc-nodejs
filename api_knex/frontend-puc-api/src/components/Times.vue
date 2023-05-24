@@ -39,9 +39,12 @@
     },
     methods: {
       listaTimes() {
+        let loader = this.$loading.show();
+
         TimeService.get()
           .then(response => {
             this.times = response.data;
+            loader.hide()
           })
           .catch(e => {
             this.$toastr.defaultPosition = "toast-top-center";
@@ -51,6 +54,7 @@
               localStorage.removeItem("token");
               localStorage.removeItem("isAdmin");
               this.$router.push('/')
+              loader.hide()
             }
           });
       },
